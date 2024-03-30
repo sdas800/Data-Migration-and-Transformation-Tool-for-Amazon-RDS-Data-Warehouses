@@ -4,8 +4,7 @@ import os
 
 destination_dir = "Dictionary_files"
 url = "https://www.sec.gov/Archives/edgar/daily-index/bulkdata/submissions.zip"
-zip_file_path = os.path.join(destination_dir, "submissions.zip")
-
+zip_file_path = os.path.join("Dictionary_files", "submissions.zip")
 
 # Define function to download zip file from URL
 def download_zip_file(url, zip_file_path):
@@ -13,8 +12,7 @@ def download_zip_file(url, zip_file_path):
     # Create the destination directory if it doesn't exist
     os.makedirs(os.path.dirname(zip_file_path), exist_ok=True)
     try:
-        header = {
-            'User-Agent': 'Microsoft Edge/122.0.2365.92 (Official build) (64-bit)'}  # Add a User-Agent header to mimic a browser request
+        header = {'User-Agent': 'Microsoft Edge/122.0.2365.92 (Official build) (64-bit)'}  # Add a User-Agent header to mimic a browser request
         response = requests.get(url, headers=header, stream=True)
         response.raise_for_status()  # Raise error for non-2xx status codes
         with open(zip_file_path, "wb") as f:
@@ -25,18 +23,18 @@ def download_zip_file(url, zip_file_path):
         print(f"Error downloading zip file: {e}")
         return False
 
-
 # Define function to extract JSON files from the zip file
-def extract_json_files(zip_file_path, extraction_dir):
+def extract_json_files(zip_file_path, destination_dir):
     """Extracts JSON files from the zip file."""
     try:
         with ZipFile(zip_file_path, 'r') as zip_ref:
-            zip_ref.extractall(extraction_dir)
+            zip_ref.extractall(destination_dir)
+            # Remove the ZIP file
+            os.remove(zip_file_path)
         return True
     except Exception as e:
         print(f"Error extracting JSON files: {e}")
         return False
-
 
 # Main program flow
 if __name__ == "__main__":
