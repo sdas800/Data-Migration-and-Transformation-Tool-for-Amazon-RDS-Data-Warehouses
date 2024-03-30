@@ -4,7 +4,8 @@ import os
 # Define function to upload JSON files to Amazon S3
 def upload_to_s3(json_files_directory, bucket_name, prefix=''):
     """Uploads JSON files to the specified S3 bucket."""
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3', aws_access_key_id="YOUR_ACCESS_KEY", 
+                      aws_secret_access_key="YOUR_SECRET_KEY")
     try:
         for file_name in os.listdir(json_files_directory):
             file_path = os.path.join(json_files_directory, file_name)

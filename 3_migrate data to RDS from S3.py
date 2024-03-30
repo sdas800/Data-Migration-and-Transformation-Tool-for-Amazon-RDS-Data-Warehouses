@@ -14,6 +14,8 @@ def load_into_rds(bucket_name, aws_access_key_id, aws_secret_access_key, rds_dat
                 response = s3.get_object(Bucket=bucket_name, Key=file_name)
                 data = json.loads(response['Body'].read().decode('utf-8'))
                 df = pd.DataFrame(data)
+                # Select only the first 5 rows and 5 columns
+                df = df.head(5).iloc[:, :5]
                 engine = create_engine(rds_database_url)
                 df.to_sql(table_name, engine, if_exists='append', index=False)
         return True
@@ -21,17 +23,13 @@ def load_into_rds(bucket_name, aws_access_key_id, aws_secret_access_key, rds_dat
         print(f"Error loading data into RDS: {e}")
         return False
 
-# Main program flow
-if __name__ == "__main__":
-    # Define input parameters
-    bucket_name = "YOUR_S3_BUCKET_NAME"
-    aws_access_key_id = "YOUR_AWS_ACCESS_KEY_ID"
-    aws_secret_access_key = "YOUR_AWS_SECRET_ACCESS_KEY"
-    rds_database_url = "RDS_DATABASE_URL"
-    table_name = "YOUR_TABLE_NAME"
 
-    # Load data from S3 into RDS
-    if load_into_rds(bucket_name, aws_access_key_id, aws_secret_access_key, rds_database_url, table_name):
-        print("Data successfully migrated from S3 to RDS.")
-    else:
-        print("Error loading data into RDS.")
+# Define input parameters
+bucket_name = "YOUR_S3_BUCKET_NAME"
+aws_access_key_id = "YOUR_AWS_ACCESS_KEY_ID"
+aws_secret_access_key = "YOUR_AWS_SECRET_ACCESS_KEY"
+rds_database_url = "RDS_DATABASE_URL"
+table_name = "YOUR_TABLE_NAME"
+
+# Call this function to load data from S3 into RDS
+load_into_rds(bucket_name, aws_access_key_id, aws_secret_access_key, rds_database_url, table_name)
