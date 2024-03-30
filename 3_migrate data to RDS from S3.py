@@ -6,16 +6,19 @@ import boto3
 import pandas as pd
 from sqlalchemy import create_engine
 
+
 # Function to download zip file from URL
 def download_zip_file(url, destination):
     response = requests.get(url)
     with open(destination, 'wb') as f:
         f.write(response.content)
 
+
 # Function to extract JSON files from the zip file
 def extract_json_files(zip_file_path, extraction_path):
     with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
         zip_ref.extractall(extraction_path)
+
 
 # Function to upload JSON files to Amazon S3
 def upload_to_s3(json_files_directory, bucket_name):
@@ -23,6 +26,7 @@ def upload_to_s3(json_files_directory, bucket_name):
     for file_name in os.listdir(json_files_directory):
         file_path = os.path.join(json_files_directory, file_name)
         s3.upload_file(file_path, bucket_name, file_name)
+
 
 # Function to load data from Amazon S3 into Amazon RDS using pandas and sqlalchemy
 def load_into_rds(bucket_name, aws_access_key_id, aws_secret_access_key, rds_database_url, table_name):
@@ -36,6 +40,7 @@ def load_into_rds(bucket_name, aws_access_key_id, aws_secret_access_key, rds_dat
             df = pd.DataFrame(data)
             engine = create_engine(rds_database_url)
             df.to_sql(table_name, engine, if_exists='append', index=False)
+
 
 # Example usage
 if __name__ == "__main__":
