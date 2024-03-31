@@ -25,9 +25,9 @@ def load_into_rds(bucket_name, aws_access_key_id, aws_secret_access_key, rds_dat
 
 
 # Define input parameters
-bucket_name = "YOUR_S3_BUCKET_NAME"
-aws_access_key_id = "YOUR_AWS_ACCESS_KEY_ID"
-aws_secret_access_key = "YOUR_AWS_SECRET_ACCESS_KEY"
+bucket_name = "sdas1"
+aws_access_key_id = "AKIAU6GDX6EDEF7CY2AW"
+aws_secret_access_key = "Ot8NfqeYD5O2+Whcxar0gpwkdSxxYhLQOM9uhA8D"
 rds_database_url = "RDS_DATABASE_URL"
 table_name = "YOUR_TABLE_NAME"
 
