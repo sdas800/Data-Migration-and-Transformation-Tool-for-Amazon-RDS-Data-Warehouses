@@ -47,8 +47,8 @@ def load_into_rds(bucket_name, aws_access_key_id, aws_secret_access_key, rds_dat
 
 # Define input parameters
 bucket_name = "sdas1"
-aws_access_key_id = "AKIAU6GDX6EDEF7CY2AW"
-aws_secret_access_key = "Ot8NfqeYDfdgdrhgsdfhnftgnsftyjOM9uhA8D"
+aws_access_key_id = "AKIAU6GDX6EDEFFSJXAW"
+aws_secret_access_key = "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"
 rds_database_url = f"mysql+pymysql://admin:80016745@database-1.czy8qaeuq6nt.ap-southeast-2.rds.amazonaws.com:3306" 
 table_name = "new_data"
 
